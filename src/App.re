@@ -22,16 +22,22 @@ let dummyRepos: array(RepoData.repo) = [|
 let make = children => {
   ...component,
   initialState: () => {repoData: None},
+  didMount: self => {
+    let handleReposLoaded = repoData => self.send(Loaded(repoData));
+
+    RepoData.fetchRepos()
+    |> Js.Promise.then_(repoData => {
+         handleReposLoaded(repoData);
+         Js.Promise.resolve();
+       })
+    |> ignore;
+    /* ReasonReact.NoUpdate; */
+  },
   reducer: (action, _state) =>
     switch (action) {
     | Loaded(loadedRepo) => ReasonReact.Update({repoData: Some(loadedRepo)})
     },
   render: ({state: {repoData}, send}) => {
-    let loadReposButton =
-      <button onClick=(_e => send(Loaded(dummyRepos)))>
-        (str("Load Repos"))
-      </button>;
-
     let repoItems =
       switch (repoData) {
       | Some(repos) =>
@@ -41,7 +47,7 @@ let make = children => {
             repos,
           ),
         )
-      | None => loadReposButton
+      | None => str("Loading...")
       };
     <div className="App">
       <h1> (str("Reason Projects")) </h1>

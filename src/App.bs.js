@@ -23,22 +23,22 @@ function make() {
           /* reactClassInternal */component[/* reactClassInternal */1],
           /* handedOffState */component[/* handedOffState */2],
           /* willReceiveProps */component[/* willReceiveProps */3],
-          /* didMount */component[/* didMount */4],
+          /* didMount */(function (self) {
+              RepoData$ReactTemplate.fetchRepos(/* () */0).then((function (repoData) {
+                      Curry._1(self[/* send */3], /* Loaded */[repoData]);
+                      return Promise.resolve(/* () */0);
+                    }));
+              return /* () */0;
+            }),
           /* didUpdate */component[/* didUpdate */5],
           /* willUnmount */component[/* willUnmount */6],
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (param) {
-              var send = param[/* send */3];
               var repoData = param[/* state */1][/* repoData */0];
-              var loadReposButton = React.createElement("button", {
-                    onClick: (function () {
-                        return Curry._1(send, /* Loaded */[dummyRepos]);
-                      })
-                  }, "Load Repos");
               var repoItems = repoData ? $$Array.map((function (repo) {
                         return ReasonReact.element(/* Some */[repo[/* full_name */0]], /* None */0, RepoItem$ReactTemplate.make(repo, /* array */[]));
-                      }), repoData[0]) : loadReposButton;
+                      }), repoData[0]) : "Loading...";
               return React.createElement("div", {
                           className: "App"
                         }, React.createElement("h1", undefined, "Reason Projects"), repoItems);

@@ -11,5 +11,24 @@ function parseRepoJson(json) {
         ];
 }
 
+function parseReposResponseJson(json) {
+  return Json_decode.field("items", (function (param) {
+                return Json_decode.array(parseRepoJson, param);
+              }), json);
+}
+
+var reposUrl = "https://api.github.com/search/repositories?q=topic%3Areasonml&type=Repositories";
+
+function fetchRepos() {
+  return fetch(reposUrl).then((function (prim) {
+                  return prim.text();
+                })).then((function (jsonText) {
+                return Promise.resolve(parseReposResponseJson(JSON.parse(jsonText)));
+              }));
+}
+
 exports.parseRepoJson = parseRepoJson;
+exports.parseReposResponseJson = parseReposResponseJson;
+exports.reposUrl = reposUrl;
+exports.fetchRepos = fetchRepos;
 /* No side effect */
