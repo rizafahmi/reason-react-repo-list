@@ -6,6 +6,7 @@ var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
+var RepoData$ReactTemplate = require("./RepoData.bs.js");
 var RepoItem$ReactTemplate = require("./RepoItem.bs.js");
 
 var component = ReasonReact.reducerComponent("App");
@@ -14,18 +15,7 @@ function str(prim) {
   return prim;
 }
 
-var dummyRepos = /* array */[
-  /* record */[
-    /* full_name */"jsdf/reason-react-hacker-news",
-    /* stargazers_count */27,
-    /* html_url */"https://github.com/jsdf/reason-react-hacker-news"
-  ],
-  /* record */[
-    /* full_name */"reasonml/reason-tools",
-    /* stargazers_count */93,
-    /* html_url */"https://github.com/reasonml/reason-tools"
-  ]
-];
+var dummyRepos = /* array */[RepoData$ReactTemplate.parseRepoJson(JSON.parse("\n        {\n          \"stargazers_count\": 93,\n          \"full_name\": \"reasonml/reason-tools\",\n          \"html_url\": \"https://github.com/reasonml/reason-tools\"\n        }\n    "))];
 
 function make() {
   return /* record */[

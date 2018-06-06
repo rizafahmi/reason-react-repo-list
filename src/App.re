@@ -6,16 +6,17 @@ let component = ReasonReact.reducerComponent("App");
 
 let str = ReasonReact.string;
 let dummyRepos: array(RepoData.repo) = [|
-  {
-    stargazers_count: 27,
-    full_name: "jsdf/reason-react-hacker-news",
-    html_url: "https://github.com/jsdf/reason-react-hacker-news",
-  },
-  {
-    stargazers_count: 93,
-    full_name: "reasonml/reason-tools",
-    html_url: "https://github.com/reasonml/reason-tools",
-  },
+  RepoData.parseRepoJson(
+    Js.Json.parseExn(
+      {js|
+        {
+          "stargazers_count": 93,
+          "full_name": "reasonml/reason-tools",
+          "html_url": "https://github.com/reasonml/reason-tools"
+        }
+    |js},
+    ),
+  ),
 |];
 
 let make = children => {
@@ -27,7 +28,7 @@ let make = children => {
     },
   render: ({state: {repoData}, send}) => {
     let loadReposButton =
-      <button onClick=(e => send(Loaded(dummyRepos)))>
+      <button onClick=(_e => send(Loaded(dummyRepos)))>
         (str("Load Repos"))
       </button>;
 
