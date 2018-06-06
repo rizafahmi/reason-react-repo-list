@@ -5,19 +5,6 @@ type action =
 let component = ReasonReact.reducerComponent("App");
 
 let str = ReasonReact.string;
-let dummyRepos: array(RepoData.repo) = [|
-  RepoData.parseRepoJson(
-    Js.Json.parseExn(
-      {js|
-        {
-          "stargazers_count": 93,
-          "full_name": "reasonml/reason-tools",
-          "html_url": "https://github.com/reasonml/reason-tools"
-        }
-    |js},
-    ),
-  ),
-|];
 
 let make = children => {
   ...component,
@@ -31,7 +18,6 @@ let make = children => {
          Js.Promise.resolve();
        })
     |> ignore;
-    /* ReasonReact.NoUpdate; */
   },
   reducer: (action, _state) =>
     switch (action) {

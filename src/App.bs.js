@@ -15,8 +15,6 @@ function str(prim) {
   return prim;
 }
 
-var dummyRepos = /* array */[RepoData$ReactTemplate.parseRepoJson(JSON.parse("\n        {\n          \"stargazers_count\": 93,\n          \"full_name\": \"reasonml/reason-tools\",\n          \"html_url\": \"https://github.com/reasonml/reason-tools\"\n        }\n    "))];
-
 function make() {
   return /* record */[
           /* debugName */component[/* debugName */0],
@@ -57,6 +55,5 @@ function make() {
 
 exports.component = component;
 exports.str = str;
-exports.dummyRepos = dummyRepos;
 exports.make = make;
 /* component Not a pure module */
